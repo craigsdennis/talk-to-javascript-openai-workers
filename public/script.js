@@ -23,6 +23,24 @@ const fns = {
 		await hand.sendCommand(numberOfFingers);
 		return { success: true, numberOfFingers };
 	},
+	generateImage: async ({ prompt }) => {
+		console.log('generateImage', prompt);
+		const imageUrl = await fetch('/generate-image', {
+			method: 'POST',
+			body: prompt,
+		}).then((r) => r.text());
+
+		console.log('imageUrl', imageUrl);
+		
+		// append the image to the page
+		const img = document.createElement('img');
+		img.src = imageUrl;
+		img.style.maxWidth = '100%';
+		const container = document.getElementById('image-container');
+		container.prepend(img);
+
+		return { success: true, imageUrl };
+	}
 };
 
 // Create a WebRTC Agent
@@ -84,6 +102,17 @@ function configureData() {
 					name: 'getPageHTML',
 					description: 'Gets the HTML for the current page',
 				},
+				{
+					type: 'function',
+					name: 'generateImage',
+					description: 'Generates an image using AI and displays it on the page',
+					parameters: {
+						type: 'object',
+						properties: {
+							prompt: { type: 'string', description: 'Text description of the image to generate' }
+						}
+					}
+				}
 			],
 		},
 	};

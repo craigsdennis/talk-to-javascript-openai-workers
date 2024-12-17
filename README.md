@@ -23,10 +23,11 @@ npm run dev
 
 ## Deploy
 
-Upload your secret
+Upload your secrets
 
 ```bash
 npx wrangler secret put OPENAI_API_KEY
+npx wrangler secret put REPLICATE_API_TOKEN
 ```
 
 ```bash

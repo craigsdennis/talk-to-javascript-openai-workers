@@ -2,4 +2,5 @@
 
 interface Env {
 	OPENAI_API_KEY: string;
+	REPLICATE_API_TOKEN: string;
 }
